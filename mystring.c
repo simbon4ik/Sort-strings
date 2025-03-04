@@ -11,7 +11,7 @@ char* readline2(const char *s){ //Собственный ридлайн
     while (n > 0){
 	    len += strlen(buf);
         ptr = (char*)realloc(ptr,len+1);    //Расширяем строку
-        memcpy(ptr,buf,len);                //Переносим данные
+        memcpy(ptr + len - strlen(buf),buf,strlen(buf));                //Переносим данные
         n = scanf("%50[^\n]",buf);          //Считываем следующие 50 символов
     }
     if (n == 0){
@@ -33,7 +33,7 @@ char* freadline2(FILE *f){      //Ридлайн для считывания с�
 		len += strlen(buf);
         ptr = (char*)realloc(ptr,len+1);
             //strcat(ptr, buf);
-        memcpy(ptr,buf,len);
+        memcpy(ptr + len - strlen(buf),buf,strlen(buf));                //Переносим данные
         n = fscanf(f,"%50[^\n]",buf);
     }
     if (n == 0){

@@ -19,7 +19,7 @@ void clear_array(char** array, int len){
 int main(){
     int len = default_len;
 	int type = 0;
-    
+
     char** array_string_file = (char**)malloc(default_len_array * sizeof(char*));        //Создаем массив строк (которые считаем из файла)
     for (int i = 0; i < default_len_array; ++i){
         array_string_file[i] = (char*)malloc(default_len * sizeof(char));        //Выделяем память под строки
@@ -30,8 +30,7 @@ int main(){
         clear_array(array_string_file, default_len_array);
         return 1;
     }
-    char* file_out = readline2("Введите имя выходного файла:\n");
-    puts("Выберите: Выбор алгоритма сортировки\n1. Сортировка строк во всем файле\n2. Сортировка внутри каждой строки по словам\n");
+    printf("Выберите: Выбор алгоритма сортировки\n1. Сортировка строк во всем файле\n2. Сортировка внутри каждой строки по словам\n");
     op = getint(&type,0,INT_MAX);
 	if (op == -1) return 0; //Обработка неккоректного ввода
 	switch(type){
@@ -46,9 +45,7 @@ int main(){
 		default:
 			puts("Введите число от 1 до 2 \n");
 	}
-    for (int i = 0; i < len; ++i){
-		printf("%s\n",array_string_file[i]);
-    }
+	outfile(array_string_file, len);
     clear_array(array_string_file, default_len_array);
 	return 0;
 }

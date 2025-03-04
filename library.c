@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include "mystring.h"
 
-int outfile(char ***ptr, int *len){
+int outfile(char **ptr, int len){
 	char *filename = readline2("Введите имя файла txt для записи \n");
 	FILE *f = fopen(filename,"a");      //Открываем файлик на дописывание в конец (если существует), иначе создаем
-    for(int i = 0; i < (*len); ++i){
-		fprintf(f, "%s\n", *(*(ptr)+i));    //Записываем в файлик строку
+    for(int i = 0; i < len; ++i){
+		fprintf(f, "%s\n", *(ptr+i));    //Записываем в файлик строку
 	}
 	fclose(f);          //Закрываем файлик
 	free(filename);     //Очищаем памяять
