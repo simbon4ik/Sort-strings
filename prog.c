@@ -45,7 +45,7 @@ int main(){
 		default:
 			puts("Введите число от 1 до 2 \n");
 	}
-	outfile(array_string_file, len);
-    clear_array(array_string_file, default_len_array);
+	outfile(array_string_file, len);    //Запись в файл
+    clear_array(array_string_file, default_len_array);  //Очистка памяти
 	return 0;
 }
