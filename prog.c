@@ -21,9 +21,6 @@ int main(){
 	int type = 0;
 
     char** array_string_file = (char**)malloc(default_len_array * sizeof(char*));        //Создаем массив строк (которые считаем из файла)
-    for (int i = 0; i < default_len_array; ++i){
-        array_string_file[i] = (char*)malloc(default_len * sizeof(char));        //Выделяем память под строки
-    }
 
     int op = inputfile(&array_string_file, &len);       //Считываем массив строк из файла
     if (op != 0){
@@ -46,6 +43,8 @@ int main(){
 			puts("Введите число от 1 до 2 \n");
 	}
 	outfile(array_string_file, len);    //Запись в файл
-    clear_array(array_string_file, default_len_array);  //Очистка памяти
+    if (len < default_len_array){
+        clear_array(array_string_file, default_len_array);  //Очистка памяти
+    }else clear_array(array_string_file, len);  //Очистка памяти
 	return 0;
 }

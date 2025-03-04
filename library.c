@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "mystring.h"
 
+#define default_len_array 10
+
 int outfile(char **ptr, int len){
 	char *filename = readline2("Введите имя файла txt для записи \n");
 	FILE *f = fopen(filename,"a");      //Открываем файлик на дописывание в конец (если существует), иначе создаем
@@ -26,13 +28,14 @@ int inputfile(char ***ptr, int *len){
     *len = 0;	    //Обнуляем число строк в файле
 	while (!feof(f)){       //Идем до конца файла
 		char *s = freadline2(f);
-		if (s != NULL){
-			printf("Строка, считанная из файла = %s \n", s);
-		}
         *((*ptr) + (*len)) = s;
 		*len += 1;  //Количество строк в файле
-	}
+	    if ((*len) % default_len_array == 0){
+            (*ptr) = (char**)realloc(*ptr,sizeof(char*)*(default_len_array + (*len)));  //Если больше, чем 10 строк
+        }
+    }
     *len -= 1;
+	fclose(f);          //Закрываем файлик
 	free(filename);
 	return 0;
 }
