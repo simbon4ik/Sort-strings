@@ -17,10 +17,32 @@ char* readline2(const char *s){ //Собственный ридлайн
     if (n == 0){
 	    scanf("%*c");       //Очищаем буфер
         ptr[len] = '\0';    //Завершаем строку терм.нулем
-    }
-	else{
+    }else{
 		free(ptr);          //Обработка ошибок считывания
 		ptr = NULL;
 	}
     return ptr;
 }
+
+char* freadline2(FILE *f){      //Ридлайн для считывания строки из файла
+    int n = 0, len = 0;
+    char buf[51];
+    n = fscanf(f,"%50[^\n]",buf);       //scanf для файла, остальное аналогично
+	char *ptr = (char*)calloc(1,sizeof(char));
+    while (n > 0){
+		len += strlen(buf);
+        ptr = (char*)realloc(ptr,len+1);
+            //strcat(ptr, buf);
+        memcpy(ptr,buf,len);
+        n = fscanf(f,"%50[^\n]",buf);
+    }
+    if (n == 0){
+		fscanf(f,"%*c");
+        ptr[len] = '\0';
+    }else{
+		free(ptr);
+		ptr = NULL;
+	}
+    return ptr;
+}
+
